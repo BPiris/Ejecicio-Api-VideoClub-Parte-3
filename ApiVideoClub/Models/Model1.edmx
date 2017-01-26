@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ejercicioVideoclubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actores">
+          <Key>
+            <PropertyRef Name="idActores" />
+          </Key>
+          <Property Name="idActores" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Actores_Peliculas_Incremental">
+          <Key>
+            <PropertyRef Name="idActores_Peliculas" />
+          </Key>
+          <Property Name="idActores_Peliculas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idActores" Type="int" Nullable="false" />
+          <Property Name="idPeliculas" Type="int" Nullable="false" />
+          <Property Name="Sueldo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Actores_Peliculas_PK">
+          <Key>
+            <PropertyRef Name="idActores" />
+            <PropertyRef Name="idPelicula" />
+          </Key>
+          <Property Name="idActores" Type="int" Nullable="false" />
+          <Property Name="idPelicula" Type="int" Nullable="false" />
+          <Property Name="Sueldo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreCliente" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="apellidosCliente" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Peliculas">
+          <Key>
+            <PropertyRef Name="idPelicula" />
+          </Key>
+          <Property Name="idPelicula" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombrePelicula" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="anoPelicula" Type="int" Nullable="false" />
+          <Property Name="formatoPelicula" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Descripcion" Type="text" Nullable="false" />
+          <Property Name="idCliente" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Actores_Peliculas_Incremental_Actores_idActores">
+          <End Role="Actores" Type="Self.Actores" Multiplicity="1" />
+          <End Role="Actores_Peliculas_Incremental" Type="Self.Actores_Peliculas_Incremental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actores">
+              <PropertyRef Name="idActores" />
+            </Principal>
+            <Dependent Role="Actores_Peliculas_Incremental">
+              <PropertyRef Name="idActores" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actores_Peliculas_Incremental_Peliculas_idPelicula">
+          <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="1" />
+          <End Role="Actores_Peliculas_Incremental" Type="Self.Actores_Peliculas_Incremental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peliculas">
+              <PropertyRef Name="idPelicula" />
+            </Principal>
+            <Dependent Role="Actores_Peliculas_Incremental">
+              <PropertyRef Name="idPeliculas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actores_Peliculas_PK_Actores_idActores">
+          <End Role="Actores" Type="Self.Actores" Multiplicity="1" />
+          <End Role="Actores_Peliculas_PK" Type="Self.Actores_Peliculas_PK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actores">
+              <PropertyRef Name="idActores" />
+            </Principal>
+            <Dependent Role="Actores_Peliculas_PK">
+              <PropertyRef Name="idActores" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actores_Peliculas_PK_Peliculas_idPelicula">
+          <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="1" />
+          <End Role="Actores_Peliculas_PK" Type="Self.Actores_Peliculas_PK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peliculas">
+              <PropertyRef Name="idPelicula" />
+            </Principal>
+            <Dependent Role="Actores_Peliculas_PK">
+              <PropertyRef Name="idPelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Peliculas_Clientes_idCliente">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Peliculas">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ejercicioVideoclubModelStoreContainer">
+          <EntitySet Name="Actores" EntityType="Self.Actores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Actores_Peliculas_Incremental" EntityType="Self.Actores_Peliculas_Incremental" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Actores_Peliculas_PK" EntityType="Self.Actores_Peliculas_PK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Peliculas" EntityType="Self.Peliculas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Actores_Peliculas_Incremental_Actores_idActores" Association="Self.FK_Actores_Peliculas_Incremental_Actores_idActores">
+            <End Role="Actores" EntitySet="Actores" />
+            <End Role="Actores_Peliculas_Incremental" EntitySet="Actores_Peliculas_Incremental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actores_Peliculas_Incremental_Peliculas_idPelicula" Association="Self.FK_Actores_Peliculas_Incremental_Peliculas_idPelicula">
+            <End Role="Peliculas" EntitySet="Peliculas" />
+            <End Role="Actores_Peliculas_Incremental" EntitySet="Actores_Peliculas_Incremental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actores_Peliculas_PK_Actores_idActores" Association="Self.FK_Actores_Peliculas_PK_Actores_idActores">
+            <End Role="Actores" EntitySet="Actores" />
+            <End Role="Actores_Peliculas_PK" EntitySet="Actores_Peliculas_PK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actores_Peliculas_PK_Peliculas_idPelicula" Association="Self.FK_Actores_Peliculas_PK_Peliculas_idPelicula">
+            <End Role="Peliculas" EntitySet="Peliculas" />
+            <End Role="Actores_Peliculas_PK" EntitySet="Actores_Peliculas_PK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Peliculas_Clientes_idCliente" Association="Self.FK_Peliculas_Clientes_idCliente">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Peliculas" EntitySet="Peliculas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ejercicioVideoclubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Actores">
+          <Key>
+            <PropertyRef Name="idActores" />
+          </Key>
+          <Property Name="idActores" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Actores_Peliculas_Incremental" Relationship="Self.FK_Actores_Peliculas_Incremental_Actores_idActores" FromRole="Actores" ToRole="Actores_Peliculas_Incremental" />
+          <NavigationProperty Name="Actores_Peliculas_PK" Relationship="Self.FK_Actores_Peliculas_PK_Actores_idActores" FromRole="Actores" ToRole="Actores_Peliculas_PK" />
+        </EntityType>
+        <EntityType Name="Actores_Peliculas_Incremental">
+          <Key>
+            <PropertyRef Name="idActores_Peliculas" />
+          </Key>
+          <Property Name="idActores_Peliculas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idActores" Type="Int32" Nullable="false" />
+          <Property Name="idPeliculas" Type="Int32" Nullable="false" />
+          <Property Name="Sueldo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Actores" Relationship="Self.FK_Actores_Peliculas_Incremental_Actores_idActores" FromRole="Actores_Peliculas_Incremental" ToRole="Actores" />
+          <NavigationProperty Name="Peliculas" Relationship="Self.FK_Actores_Peliculas_Incremental_Peliculas_idPelicula" FromRole="Actores_Peliculas_Incremental" ToRole="Peliculas" />
+        </EntityType>
+        <EntityType Name="Actores_Peliculas_PK">
+          <Key>
+            <PropertyRef Name="idActores" />
+            <PropertyRef Name="idPelicula" />
+          </Key>
+          <Property Name="idActores" Type="Int32" Nullable="false" />
+          <Property Name="idPelicula" Type="Int32" Nullable="false" />
+          <Property Name="Sueldo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Actores" Relationship="Self.FK_Actores_Peliculas_PK_Actores_idActores" FromRole="Actores_Peliculas_PK" ToRole="Actores" />
+          <NavigationProperty Name="Peliculas" Relationship="Self.FK_Actores_Peliculas_PK_Peliculas_idPelicula" FromRole="Actores_Peliculas_PK" ToRole="Peliculas" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreCliente" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidosCliente" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Peliculas" Relationship="Self.FK_Peliculas_Clientes_idCliente" FromRole="Clientes" ToRole="Peliculas" />
+        </EntityType>
+        <EntityType Name="Peliculas">
+          <Key>
+            <PropertyRef Name="idPelicula" />
+          </Key>
+          <Property Name="idPelicula" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombrePelicula" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="anoPelicula" Type="Int32" Nullable="false" />
+          <Property Name="formatoPelicula" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Actores_Peliculas_Incremental" Relationship="Self.FK_Actores_Peliculas_Incremental_Peliculas_idPelicula" FromRole="Peliculas" ToRole="Actores_Peliculas_Incremental" />
+          <NavigationProperty Name="Actores_Peliculas_PK" Relationship="Self.FK_Actores_Peliculas_PK_Peliculas_idPelicula" FromRole="Peliculas" ToRole="Actores_Peliculas_PK" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Peliculas_Clientes_idCliente" FromRole="Peliculas" ToRole="Clientes" />
+        </EntityType>
+        <Association Name="FK_Actores_Peliculas_Incremental_Actores_idActores">
+          <End Role="Actores" Type="Self.Actores" Multiplicity="1" />
+          <End Role="Actores_Peliculas_Incremental" Type="Self.Actores_Peliculas_Incremental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actores">
+              <PropertyRef Name="idActores" />
+            </Principal>
+            <Dependent Role="Actores_Peliculas_Incremental">
+              <PropertyRef Name="idActores" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actores_Peliculas_PK_Actores_idActores">
+          <End Role="Actores" Type="Self.Actores" Multiplicity="1" />
+          <End Role="Actores_Peliculas_PK" Type="Self.Actores_Peliculas_PK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actores">
+              <PropertyRef Name="idActores" />
+            </Principal>
+            <Dependent Role="Actores_Peliculas_PK">
+              <PropertyRef Name="idActores" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actores_Peliculas_Incremental_Peliculas_idPelicula">
+          <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="1" />
+          <End Role="Actores_Peliculas_Incremental" Type="Self.Actores_Peliculas_Incremental" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peliculas">
+              <PropertyRef Name="idPelicula" />
+            </Principal>
+            <Dependent Role="Actores_Peliculas_Incremental">
+              <PropertyRef Name="idPeliculas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actores_Peliculas_PK_Peliculas_idPelicula">
+          <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="1" />
+          <End Role="Actores_Peliculas_PK" Type="Self.Actores_Peliculas_PK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peliculas">
+              <PropertyRef Name="idPelicula" />
+            </Principal>
+            <Dependent Role="Actores_Peliculas_PK">
+              <PropertyRef Name="idPelicula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Peliculas_Clientes_idCliente">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Peliculas">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ejercicioVideoclubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actores" EntityType="Self.Actores" />
+          <EntitySet Name="Actores_Peliculas_Incremental" EntityType="Self.Actores_Peliculas_Incremental" />
+          <EntitySet Name="Actores_Peliculas_PK" EntityType="Self.Actores_Peliculas_PK" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Peliculas" EntityType="Self.Peliculas" />
+          <AssociationSet Name="FK_Actores_Peliculas_Incremental_Actores_idActores" Association="Self.FK_Actores_Peliculas_Incremental_Actores_idActores">
+            <End Role="Actores" EntitySet="Actores" />
+            <End Role="Actores_Peliculas_Incremental" EntitySet="Actores_Peliculas_Incremental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actores_Peliculas_PK_Actores_idActores" Association="Self.FK_Actores_Peliculas_PK_Actores_idActores">
+            <End Role="Actores" EntitySet="Actores" />
+            <End Role="Actores_Peliculas_PK" EntitySet="Actores_Peliculas_PK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actores_Peliculas_Incremental_Peliculas_idPelicula" Association="Self.FK_Actores_Peliculas_Incremental_Peliculas_idPelicula">
+            <End Role="Peliculas" EntitySet="Peliculas" />
+            <End Role="Actores_Peliculas_Incremental" EntitySet="Actores_Peliculas_Incremental" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actores_Peliculas_PK_Peliculas_idPelicula" Association="Self.FK_Actores_Peliculas_PK_Peliculas_idPelicula">
+            <End Role="Peliculas" EntitySet="Peliculas" />
+            <End Role="Actores_Peliculas_PK" EntitySet="Actores_Peliculas_PK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Peliculas_Clientes_idCliente" Association="Self.FK_Peliculas_Clientes_idCliente">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Peliculas" EntitySet="Peliculas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ejercicioVideoclubModelStoreContainer" CdmEntityContainer="ejercicioVideoclubEntities">
+          <EntitySetMapping Name="Actores">
+            <EntityTypeMapping TypeName="ejercicioVideoclubModel.Actores">
+              <MappingFragment StoreEntitySet="Actores">
+                <ScalarProperty Name="idActores" ColumnName="idActores" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Actores_Peliculas_Incremental">
+            <EntityTypeMapping TypeName="ejercicioVideoclubModel.Actores_Peliculas_Incremental">
+              <MappingFragment StoreEntitySet="Actores_Peliculas_Incremental">
+                <ScalarProperty Name="idActores_Peliculas" ColumnName="idActores_Peliculas" />
+                <ScalarProperty Name="idActores" ColumnName="idActores" />
+                <ScalarProperty Name="idPeliculas" ColumnName="idPeliculas" />
+                <ScalarProperty Name="Sueldo" ColumnName="Sueldo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Actores_Peliculas_PK">
+            <EntityTypeMapping TypeName="ejercicioVideoclubModel.Actores_Peliculas_PK">
+              <MappingFragment StoreEntitySet="Actores_Peliculas_PK">
+                <ScalarProperty Name="idActores" ColumnName="idActores" />
+                <ScalarProperty Name="idPelicula" ColumnName="idPelicula" />
+                <ScalarProperty Name="Sueldo" ColumnName="Sueldo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="ejercicioVideoclubModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="nombreCliente" ColumnName="nombreCliente" />
+                <ScalarProperty Name="apellidosCliente" ColumnName="apellidosCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Peliculas">
+            <EntityTypeMapping TypeName="ejercicioVideoclubModel.Peliculas">
+              <MappingFragment StoreEntitySet="Peliculas">
+                <ScalarProperty Name="idPelicula" ColumnName="idPelicula" />
+                <ScalarProperty Name="nombrePelicula" ColumnName="nombrePelicula" />
+                <ScalarProperty Name="anoPelicula" ColumnName="anoPelicula" />
+                <ScalarProperty Name="formatoPelicula" ColumnName="formatoPelicula" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
