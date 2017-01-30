@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using ApiVideoClub.Models;
+using ApiVideoClub.Models.ViewModels;
 using ApiVideoClub.Models.ViewModels.Base;
 
 namespace ApiVideoClub.Repositorios.Base
@@ -29,7 +30,7 @@ namespace ApiVideoClub.Repositorios.Base
                 Context.Dispose();
         }
 
-        public TView Add(TView model)
+        public virtual TView Add(TView model)
         {
             var data = model.ToModel();
 
@@ -49,7 +50,7 @@ namespace ApiVideoClub.Repositorios.Base
 
         }
 
-        public int Delete(int pk)
+        public virtual int Delete(int pk)
         {
             var obj = DbSet.Find(pk);
             DbSet.Remove(obj);
@@ -67,7 +68,7 @@ namespace ApiVideoClub.Repositorios.Base
             return n;
         }
 
-        public int Delete(Expression<Func<TEntity, bool>> busqueda)
+        public virtual int Delete(Expression<Func<TEntity, bool>> busqueda)
         {
             var data = DbSet.Where(busqueda);
 
@@ -86,7 +87,7 @@ namespace ApiVideoClub.Repositorios.Base
             }
         }
 
-        public List<TView> Find(Expression<Func<TEntity, bool>> busqueda)
+        public virtual List<TView> Find(Expression<Func<TEntity, bool>> busqueda)
         {
             var data = DbSet.Where(busqueda);
 
@@ -104,7 +105,7 @@ namespace ApiVideoClub.Repositorios.Base
             return lista;
         }
 
-        public List<TView> Get()
+        public virtual List<TView> Get()
         {
             var lista = new List<TView>();
             var data = DbSet;
@@ -117,7 +118,7 @@ namespace ApiVideoClub.Repositorios.Base
             return lista;
         }
 
-        public TView Get(int pk)
+        public virtual TView Get(int pk)
         {
             var model = DbSet.Find(pk);
 
@@ -128,7 +129,7 @@ namespace ApiVideoClub.Repositorios.Base
             return view;
         }
 
-        public TEntity GetModelByPk(TView model)
+        public virtual TEntity GetModelByPk(TView model)
         {
             int[] pks = model.GetPk();
             TEntity data = null;
@@ -148,7 +149,7 @@ namespace ApiVideoClub.Repositorios.Base
             return data;
         }
 
-        public int Update(TView model)
+        public virtual TView Update(TView model)
         {
             var data = GetModelByPk(model);
 
@@ -158,14 +159,13 @@ namespace ApiVideoClub.Repositorios.Base
             {
                 int r = Context.SaveChanges();
                 model.FromModel(data);
-                return r;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return -1;
+                return null;
             }
-
+            return model;
         }
     }
 }

@@ -28,15 +28,15 @@ namespace ApiVideoClub.Controllers
         }
 
         // POST: api/Clientes
-        public void Post([FromBody]ClientesViewModel value)
+        public void Post([FromBody]ClientesViewModel añadirCliente)
         {
-            _RepoClientes.Add(value);
+            _RepoClientes.Add(añadirCliente);
         }
 
         // PUT: api/Clientes/5
-        public void Put(int id, [FromBody]ClientesViewModel value)
+        public void Put([FromBody]ClientesViewModel actualizarClientes)
         {
-            _RepoClientes.Update(value);
+            _RepoClientes.Update(actualizarClientes);
         }
 
         // DELETE: api/Clientes/5

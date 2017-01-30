@@ -34,15 +34,15 @@ namespace ApiVideoClub.Controllers
         }
 
         // POST: api/Peliculas
-        public void Post([FromBody]PeliculasViewModel value)
+        public void Post([FromBody]PeliculasViewModel peliculaAnadir)
         {
-            _repoPelis.Add(value);
+            _repoPelis.Add(peliculaAnadir);
         }
 
         // PUT: api/Peliculas/5
-        public void Put(int id, [FromBody]PeliculasViewModel value)
+        public PeliculasViewModel Put([FromBody]PeliculasViewModel peliculaActualizar)
         {
-            _repoPelis.Update(value);
+            return _repoPelis.Update(peliculaActualizar);
         }
 
         // DELETE: api/Peliculas/5
@@ -55,6 +55,12 @@ namespace ApiVideoClub.Controllers
         public List<PeliculasViewModel> BuscarPeliculas(String busqueda)
         {
             return _repoPelis.Find(bd => bd.nombrePelicula.ToLower().Contains(busqueda.ToLower()));
+        }
+
+        [HttpGet]
+        public List<PeliculasViewModel> PeliculasLibres(String peliculasSinALquilar)
+        {
+            return _repoPelis.Find(bd => bd.idCliente == null);
         }
     }
 }

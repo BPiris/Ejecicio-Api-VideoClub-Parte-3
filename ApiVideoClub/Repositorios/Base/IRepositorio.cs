@@ -12,7 +12,7 @@ namespace ApiVideoClub.Repositorios.Base
         TView Get(int pk);
         List<TView> Get();
         TView Add(TView model);
-        int Update(TView model);
+        TView Update(TView model);
         int Delete(int pk);
         int Delete(Expression<Func<TEntity, bool>> busqueda);
         List<TView> Find(Expression<Func<TEntity, bool>> busqueda);

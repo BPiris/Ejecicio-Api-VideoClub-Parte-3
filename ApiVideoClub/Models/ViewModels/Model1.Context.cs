@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ApiVideoClub.Models
+namespace ApiVideoClub.Models.ViewModels
 {
     using System;
     using System.Data.Entity;

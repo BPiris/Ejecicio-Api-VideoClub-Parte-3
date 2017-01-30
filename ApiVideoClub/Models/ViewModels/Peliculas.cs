@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ApiVideoClub.Models
+namespace ApiVideoClub.Models.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace ApiVideoClub.Models
         public int anoPelicula { get; set; }
         public string formatoPelicula { get; set; }
         public string Descripcion { get; set; }
-        public int idCliente { get; set; }
+        public Nullable<int> idCliente { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Actores_Peliculas_Incremental> Actores_Peliculas_Incremental { get; set; }

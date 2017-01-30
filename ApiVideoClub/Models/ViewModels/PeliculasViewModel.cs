@@ -14,7 +14,7 @@ namespace ApiVideoClub.Models.ViewModels
         public int anoPelicula { get; set; }
         public string formatoPelicula { get; set; }
         public string Descripcion { get; set; }
-        public int idCliente { get; set; }
+        public int? idCliente { get; set; }
 
         //Externas al modelo
         public List<ActoresViewModel> ActoresPelicula { get; set; }

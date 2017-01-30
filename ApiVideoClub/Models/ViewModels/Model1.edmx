@@ -46,9 +46,9 @@
           <Property Name="idPelicula" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombrePelicula" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="anoPelicula" Type="int" Nullable="false" />
-          <Property Name="formatoPelicula" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="formatoPelicula" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="Descripcion" Type="text" Nullable="false" />
-          <Property Name="idCliente" Type="int" Nullable="false" />
+          <Property Name="idCliente" Type="int" />
         </EntityType>
         <Association Name="FK_Actores_Peliculas_Incremental_Actores_idActores">
           <End Role="Actores" Type="Self.Actores" Multiplicity="1" />
@@ -99,7 +99,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Peliculas_Clientes_idCliente">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
           <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clientes">
@@ -190,9 +190,9 @@
           <Property Name="idPelicula" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombrePelicula" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="anoPelicula" Type="Int32" Nullable="false" />
-          <Property Name="formatoPelicula" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="formatoPelicula" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <Property Name="idCliente" Type="Int32" />
           <NavigationProperty Name="Actores_Peliculas_Incremental" Relationship="Self.FK_Actores_Peliculas_Incremental_Peliculas_idPelicula" FromRole="Peliculas" ToRole="Actores_Peliculas_Incremental" />
           <NavigationProperty Name="Actores_Peliculas_PK" Relationship="Self.FK_Actores_Peliculas_PK_Peliculas_idPelicula" FromRole="Peliculas" ToRole="Actores_Peliculas_PK" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_Peliculas_Clientes_idCliente" FromRole="Peliculas" ToRole="Clientes" />
@@ -246,7 +246,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Peliculas_Clientes_idCliente">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
           <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clientes">

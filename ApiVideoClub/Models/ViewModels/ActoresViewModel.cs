@@ -12,6 +12,12 @@ namespace ApiVideoClub.Models.ViewModels
         public string nombre { get; set; }
         public string apellidos { get; set; }
 
+        //Externa al modelo
+        public int SueldoActorEnPelicula { get; set; }
+
+        //Necesaria para el uso de MVC
+        public int idPelicula { get; set; }
+
         public Actores ToModel()
         {
             return new Actores()

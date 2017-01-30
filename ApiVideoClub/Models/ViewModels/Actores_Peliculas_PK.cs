@@ -7,16 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ApiVideoClub.Models
+namespace ApiVideoClub.Models.ViewModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Actores_Peliculas_Incremental
+    public partial class Actores_Peliculas_PK
     {
-        public int idActores_Peliculas { get; set; }
         public int idActores { get; set; }
-        public int idPeliculas { get; set; }
+        public int idPelicula { get; set; }
         public int Sueldo { get; set; }
     
         public virtual Actores Actores { get; set; }

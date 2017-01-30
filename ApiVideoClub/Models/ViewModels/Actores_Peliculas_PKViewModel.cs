@@ -26,7 +26,7 @@ namespace ApiVideoClub.Models.ViewModels
         {
             idActores = model.idActores;
             idPelicula = model.idPelicula;
-            Sueldo = model.Sueldo;
+            Sueldo = model.Sueldo;            
         }
 
         public void UpdateModel(Actores_Peliculas_PK model)

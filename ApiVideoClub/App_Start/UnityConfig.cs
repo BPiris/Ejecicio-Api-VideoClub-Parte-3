@@ -1,6 +1,7 @@
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using ApiVideoClub.Models;
+using ApiVideoClub.Models.ViewModels;
 using ApiVideoClub.Repositorios;
 using Unity.WebApi;
 

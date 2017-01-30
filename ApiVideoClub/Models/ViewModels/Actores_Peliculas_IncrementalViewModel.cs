@@ -29,7 +29,7 @@ namespace ApiVideoClub.Models.ViewModels
             idActores_Peliculas = model.idActores_Peliculas;
             idActores = model.idActores;
             idPeliculas = model.idPeliculas;
-            Sueldo = model.Sueldo;
+            Sueldo = model.Sueldo;            
         }
 
         public void UpdateModel(Actores_Peliculas_Incremental model)
