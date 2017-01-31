@@ -30,5 +30,6 @@ namespace ApiVideoClub.Models.ViewModels
         public virtual DbSet<Actores_Peliculas_PK> Actores_Peliculas_PK { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Peliculas> Peliculas { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }

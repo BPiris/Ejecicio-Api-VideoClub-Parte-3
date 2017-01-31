@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using ApiVideoClub.Seguridad;
 
 namespace ApiVideoClub
 {
@@ -20,6 +21,8 @@ namespace ApiVideoClub
                 Newtonsoft.Json.PreserveReferencesHandling.Objects;
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            config.MessageHandlers.Add(new ManejadorAutentificacion());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

@@ -27,6 +27,7 @@ namespace ApiVideoClub
             container.RegisterType<RepositorioActores>();
             container.RegisterType<RepositorioActores_Peliculas_PK>();
             container.RegisterType<RepositorioActores_Peliculas_Incremental>();
+            container.RegisterType<RepositorioUsuario>();
         }
     }
 }

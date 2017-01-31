@@ -51,16 +51,29 @@ namespace ApiVideoClub.Controllers
             _repoPelis.Delete(id);
         }
 
-        [HttpGet]
-        public List<PeliculasViewModel> BuscarPeliculas(String busqueda)
-        {
-            return _repoPelis.Find(bd => bd.nombrePelicula.ToLower().Contains(busqueda.ToLower()));
-        }
+        //[HttpGet]
+        //public List<PeliculasViewModel> BuscarPeliculas(String busqueda)
+        //{
+        //    return _repoPelis.Find(bd => bd.nombrePelicula.ToLower().Contains(busqueda.ToLower()));
+        //}
 
         [HttpGet]
         public List<PeliculasViewModel> PeliculasLibres(String peliculasSinALquilar)
         {
             return _repoPelis.Find(bd => bd.idCliente == null);
+        }
+
+        [HttpGet]
+        public List<PeliculasViewModel> BuscarPeliculas(String txtBusquedaPelicula, String anoPelicula)
+        {
+            var anoPeli = Convert.ToInt32(anoPelicula);
+
+            if (!String.IsNullOrEmpty(anoPelicula) && !String.IsNullOrEmpty(txtBusquedaPelicula) )
+                return _repoPelis.Find(bd => bd.anoPelicula == anoPeli && bd.nombrePelicula.ToLower().Contains(txtBusquedaPelicula.ToLower()));
+            if (!String.IsNullOrEmpty(anoPelicula))
+                return _repoPelis.Find(bd => bd.anoPelicula == anoPeli);
+
+            return _repoPelis.Find(bd => bd.nombrePelicula.ToLower().Contains(txtBusquedaPelicula.ToLower()));
         }
     }
 }
