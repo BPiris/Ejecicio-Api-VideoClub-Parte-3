@@ -37,9 +37,9 @@ namespace ApiVideoClub.Controllers
         }
 
         // PUT: api/Actores/5
-        public void Put(int id, [FromBody]ActoresViewModel value)
+        public void Put([FromBody]ActoresViewModel mivalue)
         {
-            _RepoActores.Update(value);
+            _RepoActores.Update(mivalue);
         }
 
         // DELETE: api/Actores/5

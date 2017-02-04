@@ -25,6 +25,7 @@ namespace ApiVideoClub.Repositorios
             {
                 var actor = Get(idActoresPorPelicula.idActores);
                 actor.SueldoActorEnPelicula = idActoresPorPelicula.Sueldo;
+                actor.idPelicula = idPelicula;
                 listaActores.Add(actor);
             }
 
@@ -57,8 +58,9 @@ namespace ApiVideoClub.Repositorios
                 var tablaIntermediaPK = new Actores_Peliculas_PKViewModel() { idActores = actor.idActores, idPelicula = model.idPelicula, Sueldo = model.SueldoActorEnPelicula };
                 new RepositorioActores_Peliculas_PK(new ejercicioVideoclubEntities()).Update(tablaIntermediaPK);
 
-                var tablaIntermediaIncremental = new Actores_Peliculas_IncrementalViewModel() { idActores = actor.idActores, idPeliculas = model.idPelicula, Sueldo = model.SueldoActorEnPelicula };
-                new RepositorioActores_Peliculas_Incremental(new ejercicioVideoclubEntities()).Update(tablaIntermediaIncremental);
+                var tablaIntermediaIncremental = new RepositorioActores_Peliculas_Incremental(new ejercicioVideoclubEntities()).Find(bd => bd.idActores == model.idActores && bd.idPeliculas == model.idPelicula);
+                tablaIntermediaIncremental[0].Sueldo = model.SueldoActorEnPelicula;
+                new RepositorioActores_Peliculas_Incremental(new ejercicioVideoclubEntities()).Update(tablaIntermediaIncremental[0]);
             }
 
             return actor;
